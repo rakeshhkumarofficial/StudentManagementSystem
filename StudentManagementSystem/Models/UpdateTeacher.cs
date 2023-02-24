@@ -11,5 +11,10 @@ namespace StudentManagementSystem.Models
         public string? Class { get; set; } = "string";
         public string? Address { get; set; } = "string";
         public long Phone { get; set; } = 0;
+
+        [Required(ErrorMessage = "The Email field is required.")]
+        [EmailAddress(ErrorMessage = "The Email field is not a valid email address.")]
+        public string? Email { get; set; } = "user@example.com";
+
     }
 }

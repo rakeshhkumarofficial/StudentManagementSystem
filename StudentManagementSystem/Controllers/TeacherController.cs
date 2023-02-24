@@ -43,7 +43,5 @@ namespace StudentManagementSystem.Controllers
             service.UpdateTeachers(Id, Teach, _jsonPath);
             return Ok("Teacher Details upadted");
         }
-
-       
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.Service;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -22,47 +24,12 @@ namespace StudentManagementSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string Username, string Password)
+        public IActionResult LoginTeacher(string Username, string Password)
         {
-            string json = System.IO.File.ReadAllText(_jsonPath);
-            var Result = JsonConvert.DeserializeObject<List<WrapperModel>>(json);
-            var obj = Result[0].Teach.Find(x => x.Username == Username);        
-
-            if (obj == null)
-            {
-                return BadRequest("User Not Found");
-            }
-            if (!VerifyPasswordHash(Password,obj.PasswordHash,obj.Passwordsalt))
-            {
-                return Ok("wrong password");
-            }
-            string token = CreateToken(obj);
-
+            ITeacherService service = new TeacherService();
+            string token = service.Login(Username, Password,_jsonPath, _configuration);
             return Ok(token);
         }
-        private string CreateToken(Teacher obj)
-        {
-            List<Claim> claims = new List<Claim>
-           {
-               new Claim(ClaimTypes.Name,obj.Username)
-           };
-            var Key = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-            var creds = new SigningCredentials(Key,SecurityAlgorithms.HmacSha512Signature);
-            var token = new JwtSecurityToken(
-                claims : claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds
-            );
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);  
-            return jwt;
-        }
-        private bool VerifyPasswordHash(string Password,byte[] PasswordHash, byte[] PasswordSalt)
-        {
-            using (var hmac = new HMACSHA512(PasswordSalt))
-            {
-                byte[] computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(Password));
-                return computedHash.SequenceEqual(PasswordHash);
-            }
-        }
+       
     }
 }

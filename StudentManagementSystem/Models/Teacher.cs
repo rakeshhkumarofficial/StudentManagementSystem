@@ -13,13 +13,13 @@ namespace StudentManagementSystem.Models
         public string? Class { get; set; }
         public string? Address { get; set; }
         public long Phone { get; set; }
-        public string Username { get; set; }
-        public byte[] PasswordHash { get; set; } 
-        public byte[] Passwordsalt { get; set; } 
+        public string? Username { get; set; }
+        public byte[]? PasswordHash { get; set; } 
+        public byte[]? Passwordsalt { get; set; } 
 
         [Required(ErrorMessage = "The Email field is required.")]
         [EmailAddress(ErrorMessage = "The Email field is not a valid email address.")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public string? ProfileImage { get; set; } = "string";
         public bool? IsDelete { get; set; } = false;
     }

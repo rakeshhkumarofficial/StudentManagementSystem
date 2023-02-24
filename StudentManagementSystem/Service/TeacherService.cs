@@ -1,7 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using StudentManagementSystem.Models;
 using System.Drawing;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.NetworkInformation;
+using System.Security.Claims;
 using System.Security.Cryptography;
 
 namespace StudentManagementSystem.Service
@@ -92,6 +96,7 @@ namespace StudentManagementSystem.Service
             if (Teach.Phone != 0) { obj.Phone = Teach.Phone; }
             if (Teach.Class != "string") { obj.Class = Teach.Class; }
             if (Teach.Address != "string") { obj.Address = Teach.Address; }
+            if (Teach.Email != "user@example.com") { obj.Email = Teach.Email; }
 
             string newJson = JsonConvert.SerializeObject(Result, Formatting.Indented);
             System.IO.File.WriteAllText(_jsonPath, newJson);
@@ -108,6 +113,47 @@ namespace StudentManagementSystem.Service
             upload.ProfileImage.CopyTo(new FileStream(path,FileMode.Create));
             string newJson = JsonConvert.SerializeObject(Result, Formatting.Indented);
             System.IO.File.WriteAllText(_jsonPath, newJson);
+        }     
+        public string Login(string Username, string Password, string _jsonPath, IConfiguration _configuration)
+        {
+            string json = System.IO.File.ReadAllText(_jsonPath);
+            var Result = JsonConvert.DeserializeObject<List<WrapperModel>>(json);
+            var obj = Result[0].Teach.Find(x => x.Username == Username);
+
+            if (obj == null)
+            {
+                return "User Not Found";
+            }
+            if (!VerifyPasswordHash(Password, obj.PasswordHash, obj.Passwordsalt))
+            {
+                return "wrong password";
+            }
+            string token = CreateToken(obj, _configuration);
+            return token;
+        }
+        private string CreateToken(Teacher obj, IConfiguration _configuration)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name,obj.Username)
+           };
+            var Key = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+            var creds = new SigningCredentials(Key, SecurityAlgorithms.HmacSha512Signature);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds
+            );
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
+        }
+        private bool VerifyPasswordHash(string Password, byte[] PasswordHash, byte[] PasswordSalt)
+        {
+            using (var hmac = new HMACSHA512(PasswordSalt))
+            {
+                byte[] computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(Password));
+                return computedHash.SequenceEqual(PasswordHash);
+            }
         }
     }
 }

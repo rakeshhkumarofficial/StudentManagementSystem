@@ -28,7 +28,5 @@ namespace StudentManagementSystem.Controllers
             }
             return Ok("Image Uploaded Successfully..");
         }
-        
-       
     }
 }
