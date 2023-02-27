@@ -16,7 +16,7 @@ namespace StudentManagementSystem.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly string _jsonPath = "C:\\Users\\ChicMic Technologies\\Desktop\\SMS\\file.json";
+        private readonly string _jsonPath = "C:\\Users\\ChicMic Technologies\\Desktop\\SMS\\StudentManagementSystem\\StudentManagementSystem\\file.json";
         public readonly IConfiguration _configuration;
         public AuthController(IConfiguration configuration)
         {

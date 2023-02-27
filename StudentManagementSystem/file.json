@@ -1,0 +1,39 @@
+[
+  {
+    "Stu": [
+      {
+        "Id": "282432d5-a2b8-475b-9e62-9889ff3fa51e",
+        "Name": "Mohit Kumar",
+        "Class": "BCA",
+        "Address": "Phagwara",
+        "Phone": 8989786756,
+        "ProfileImage": "wwwroot/assets/StudentImages/image2.jpg",
+        "IsDelete": false
+      },
+      {
+        "Id": "3bc61abc-4149-45e8-b222-94ec23a2f013",
+        "Name": "Nandini Patial",
+        "Class": "MCA",
+        "Address": "Mohali",
+        "Phone": 6345567867,
+        "ProfileImage": "string",
+        "IsDelete": false
+      }
+    ],
+    "Teach": [
+      {
+        "Id": "15d11616-6b61-4090-b05d-5a8a1a13d1bc",
+        "Name": "Rakesh Kumar",
+        "Class": "Btech",
+        "Address": "Ludhiana",
+        "Phone": 9988776655,
+        "Username": "rakesh123",
+        "PasswordHash": "7n5nf3xWDzl/Ioa8dkSOKViXQ3xwQV1GNLj7bAkJqyfSCIq2YuHTiow1gU7iaHR0MQBYvEDdKfpsXdbBS7/duA==",
+        "Passwordsalt": "kKRp5tXvBnshP+7f86+wBNt3lTHoMwoIZxiQCrMcWq9W4ZxiPMtSkDkqk9vluKf8CTQah6dU3QlC7hAr0eBs8a3Cs4rBHXPM25JnOVpbFkkjCUX52oW+hENQHAObm91GZdkIPo6axnvVD+8qKRrjSyCXX2d+EhEFgCv5iOwRAGs=",
+        "Email": "rakesh@example.com",
+        "ProfileImage": "wwwroot/assets/TeacherImages/blue-lock-anime-wallpaper-1440x900_4.jpg",
+        "IsDelete": false
+      }
+    ]
+  }
+]

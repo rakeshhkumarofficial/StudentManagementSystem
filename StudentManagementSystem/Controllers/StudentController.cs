@@ -19,7 +19,7 @@ namespace StudentManagementSystem.Controllers
     [Authorize]
     public class StudentController : ControllerBase
     {
-        private readonly string _jsonPath = "C:\\Users\\ChicMic Technologies\\Desktop\\SMS\\file.json";
+        private readonly string _jsonPath = "C:\\Users\\ChicMic Technologies\\Desktop\\SMS\\StudentManagementSystem\\StudentManagementSystem\\file.json";
 
         [HttpGet]
         public IActionResult GetStu(Guid Id, string? Name, long Phone, string? Class, string? Address, int sort, int pageNumber, int records)
@@ -50,8 +50,8 @@ namespace StudentManagementSystem.Controllers
         public IActionResult PutStu(Guid Id, UpdateStudent Stu)
         {
             IStudentService service = new StudentService();
-            service.UpdateStudents(Id, Stu, _jsonPath);
-            return Ok("Student Details updated");
+            var res = service.UpdateStudents(Id, Stu, _jsonPath);
+            return Ok(res);
         }
 
        
