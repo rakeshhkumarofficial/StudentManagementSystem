@@ -16,7 +16,7 @@
         "Class": "MCA",
         "Address": "Mohali",
         "Phone": 6345567867,
-        "ProfileImage": "string",
+        "ProfileImage": "wwwroot/assets/StudentImages/blue-lock-wallpaper-1440x900_4.jpg",
         "IsDelete": false
       }
     ],
@@ -31,7 +31,7 @@
         "PasswordHash": "7n5nf3xWDzl/Ioa8dkSOKViXQ3xwQV1GNLj7bAkJqyfSCIq2YuHTiow1gU7iaHR0MQBYvEDdKfpsXdbBS7/duA==",
         "Passwordsalt": "kKRp5tXvBnshP+7f86+wBNt3lTHoMwoIZxiQCrMcWq9W4ZxiPMtSkDkqk9vluKf8CTQah6dU3QlC7hAr0eBs8a3Cs4rBHXPM25JnOVpbFkkjCUX52oW+hENQHAObm91GZdkIPo6axnvVD+8qKRrjSyCXX2d+EhEFgCv5iOwRAGs=",
         "Email": "rakesh@example.com",
-        "ProfileImage": "wwwroot/assets/TeacherImages/blue-lock-anime-wallpaper-1440x900_4.jpg",
+        "ProfileImage": "wwwroot/assets/TeacherImages/nagi.jpg",
         "IsDelete": false
       }
     ]
